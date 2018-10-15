@@ -99,7 +99,9 @@ textarea {
 
 
 
-
+   #WelcomeContainer{
+       display:none;
+   }
 
 
 

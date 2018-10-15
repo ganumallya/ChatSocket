@@ -8,14 +8,23 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="apple-touch-icon" href="icon.png">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <!-- Place favicon.ico in the root directory -->
 
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <!--<link rel="stylesheet" href="css/main.css"> -->
   
+  <style>
+      #WelcomeContainer{
+       display:none;
+      }
+      
+      #MainContainerChat{
+        display:none;
+      }
+
+
+
+  </style>
 </head>
 
 <body>
@@ -24,32 +33,56 @@
   <![endif]-->
 
   <!-- Add your site or application content here -->
-  <div class="container-fluid">
-    
-        <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">Well done!</h4>
-            <p>You have reached the client side chat window for Socket connection testing </p>
-          </div> 
+  <div class="container-fluid" id="LDAPContainer">
+      <div class="jumbotron">
+          <h1 class="display-4">Welcome</h1>
+          <p class="lead">Thanks for sparing some time to complete this HR survey. Much appriciated</p>
+          <hr class="my-4">
+          
+      </div>
+      <form id="ldapForm">
+          <blockquote class="blockquote text-center">
+              <p class="mb-0">Please enter your LDAP id to begin the survey chat.</p>
+          </blockquote>
+          <br>
+          <br><br>
+          <div class="form-group row">
+            <div class="col-sm-4">
+            </div>
+            <label for="LdapIDInput" class="font-weight-bold col-sm-1 col-form-label col-form-label-sm" >LDAP ID</label>
+            <input type="text" class="form-control col-sm-3 form-control-sm" id="LdapIDInput" placeholder="">
+            <div class="col-sm-4">
+            </div>
+          </div>
+      </form>
   </div>
   
-  <div class="container">
+  <div class="container-fluid" id="WelcomeContainer" >
+    
+      <div class="alert alert-success" role="alert">
+          <h4 class="alert-heading">Well done!</h4>
+          <p>You have reached the HR Survery chat window</p>
+      </div> 
+  </div>
+
+
+  <div class="container" id="MainContainerChat">
 
       <div class="row" id="ChatContainer">
         <div class="col-sm-11">
             <h3>
-                Ganesh Said : 
-                <small class="text-muted">"Hi There"</small>
+                Bot : 
+                <small class="text-muted">Hi there, welcome to HR Survey chat</small>
             </h3>
         </div>
       </div>
       <br>
       <br>
      
-        <form action="">
+        <form action="" id = "form2">
           <div class="form-group">
-            <label for="inputMessage">Your Message</label>
+            <label for="textMessage">Your Message</label>
             <input type="text" class="form-control" id="textMessage" >
-            <small id="" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <button type="submit" class="btn btn-primary">Send Message</button>
         </form>
@@ -63,11 +96,9 @@
 
 
 
-  <script src="js/vendor/modernizr-3.6.0.min.js"></script>
+
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
@@ -75,17 +106,54 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    var htmlChatTemplate = '<div class="col-sm-11"><h3>Someone said : <small class="text-muted">"xxxx"</small></h3></div>'
-  var socket = io();
-  $('form').submit(function(){
-      socket.emit('chat message', $('#textMessage').val());
-      $('#textMessage').val('');
-      return false;
-    });
-    socket.on('chat message', function(msg){
+    var ldapForm = $('#ldapForm');
+    var LdapIDInput = $('#LdapIDInput');
+    var LDAPContainer = $('#LDAPContainer');
+    var WelcomeContainer = $('#WelcomeContainer');
+    var MainContainerChat = $('#MainContainerChat');
+    var ChatForm = $('#form2');
+    var htmlChatTemplate = '<div class="col-sm-11"><h3>Someone said : <small class="text-muted">xxxx</small></h3></div>'
+    var SocketOption = {
+      query: {
+        name: "ganesh"
+      },
+      forceNew:false
+    }    
+    
+    var socket = "";
+    
+    ldapForm.submit(function(e){
+      e.preventDefault();
+      SocketOption.query.name = LdapIDInput.val();
+      window.socket = io(SocketOption);
+      ldapForm.hide();
+      LDAPContainer.hide();
+      MainContainerChat.show();
+      WelcomeContainer.show();
+
+      window.socket.on('chat message', function(msg,uName){
       var finalHtml = htmlChatTemplate.replace("xxxx",msg);
+      finalHtml = finalHtml.replace('Someone said',uName);
       $('#ChatContainer').append(finalHtml);
+      });
+
     });
+   
+
+
+    ChatForm.submit(function(e){
+      e.preventDefault();
+      window.socket.emit('chat message', $('#textMessage').val());
+      var finalHtml = htmlChatTemplate.replace("xxxx",$('#textMessage').val());
+      $('#textMessage').val('');
+      finalHtml = finalHtml.replace('Someone said',"You Said ");
+      $('#ChatContainer').append(finalHtml);
+      console.log(window.socket);
+    });
+    
+    
+
+
   </script>
 </body>
 
