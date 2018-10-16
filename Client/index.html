@@ -72,9 +72,18 @@
         <div class="col-sm-11">
             <h3>
                 Bot : 
-                <small class="text-muted">Hi there, welcome to HR Survey chat</small>
-            </h3>
+                <small class="text-muted">Hi there, welcome to HR Survey chat</small>      
+            </h3> 
         </div>
+
+        <div class="col-sm-11">
+            <h3>
+                Bot : 
+                <small class="text-muted">Hello! I'm Reena from ERC.  I am reaching out to you to have a quick catch up on behalf of the ERC team. This is a regular communication exercise where we reach out to random employees for their feedback on key processes. I will ask you a set of questions, please share your candid feedback.  Can I ask you few questions?</small>      
+            </h3> 
+        </div>
+
+
       </div>
       <br>
       <br>
@@ -113,6 +122,7 @@
     var MainContainerChat = $('#MainContainerChat');
     var ChatForm = $('#form2');
     var htmlChatTemplate = '<div class="col-sm-11"><h3>Someone said : <small class="text-muted">xxxx</small></h3></div>'
+    var ButtonTemplate = '<button type="button" class="btn btn-outline-primary">btntext</button>';
     var SocketOption = {
       query: {
         name: "ganesh"
@@ -135,6 +145,10 @@
       var finalHtml = htmlChatTemplate.replace("xxxx",msg);
       finalHtml = finalHtml.replace('Someone said',uName);
       $('#ChatContainer').append(finalHtml);
+      if(msg.toLowerCase().includes("thank you for your time")){
+        $('#form2').hide();
+      }
+      
       });
 
     });

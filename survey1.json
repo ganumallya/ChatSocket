@@ -1,0 +1,89 @@
+{
+    "survey1":[
+        {
+            "qId" : 0,
+            "Question":"Hello! I'm Reena from ERC.  I am reaching out to you to have a quick catch up on behalf of the ERC team. This is a regular communication exercise where we reach out to random employees for their feedback on key processes. I will ask you a set of questions, please share your candid feedback.  Can I ask you few questions?",
+            "NextQID":[1,10]
+        },
+        {
+            "qId" : 1,
+            "Question":"Did you have a check-in recently?  Yes/ No",
+            "NextQID":[2,11]
+        },
+        {
+            "qId" : 2,
+            "Question":"Do you have a Check-in with your manager Yearly or Quaterly or Monthly or at No set frequency?",
+            "NextQID":3
+        },
+        {
+            "qId" : 3,
+            "Question":"Do you and your manager set ongoing expectations for your role?  Yes/ No",
+            "NextQID":[4,12]
+        },
+        {
+            "qId" : 4,
+            "Question":"Do you have clarity on the performance measures/success metrics  for your role? Yes/ No",
+            "NextQID":[5,13]
+        },
+        {
+            "qId" : 5,
+            "Question":"Do you receive timely and constructive feedback.  Yes/ No",
+            "NextQID":[6,14]
+        },
+        {
+            "qId" : 6,
+            "Question":"Do you  have a development plan in place ? Yes/ No",
+            "NextQID":[7,15]
+        },
+        {
+            "qId" : 7,
+            "Question":"Did you have a learning opportunity in last 12 months. Learning opportunies could mean shadowing, a new assignment or project on the job, attending a training, speaker sessions or taking self paced online trainings etc? Yes/ No",
+            "NextQID":[8,16]
+        },  
+        {
+            "qId" : 8,
+            "Question":"What is the one thing that you think is going very well for you at Adobe?",
+            "NextQID":9
+        },
+        {
+            "qId" : 9,
+            "Question":"What is the one thing that is not working well for you at Adobe?",
+            "NextQID":-1
+        },
+        {
+            "qId" : 10,
+            "Question":"Please share the reason for the above response.",
+            "NextQID": -1
+        },
+        {
+            "qId" : 11,
+            "Question":"Please share the reason for the above response.",
+            "NextQID": 2
+        },
+        {
+            "qId" : 12,
+            "Question":"Please share the reason for the above response.",
+            "NextQID": 4
+        },
+        {
+            "qId" : 13,
+            "Question":"Please share the reason for the above response.",
+            "NextQID": 5
+        },
+        {
+            "qId" : 14,
+            "Question":"Please share the reason for the above response.",
+            "NextQID": 6
+        },
+        {
+            "qId" : 15,
+            "Question":"Please share the reason for the above response.",
+            "NextQID": 7
+        },
+        {
+            "qId" : 16,
+            "Question":"Please share the reason for the above response.",
+            "NextQID": 8
+        }
+    ]
+    }
